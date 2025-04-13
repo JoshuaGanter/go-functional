@@ -1,9 +1,9 @@
 package functional
 
-func Filter(elements []int, filterFn func(int) bool) []int {
+func Filter(slice []int, filterFn func(int, int, []int) bool) []int {
 	result := []int{}
-	for _, element := range elements {
-		if filterFn(element) {
+	for index, element := range slice {
+		if filterFn(element, index, slice) {
 			result = append(result, element)
 		}
 	}
