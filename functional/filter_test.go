@@ -7,12 +7,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type TestCase[TValue comparable] struct {
+	input    []TValue
+	filterFn func(TValue, int, []TValue) bool
+	expected []TValue
+}
+
 func TestFilter(t *testing.T) {
-	tests := []struct {
-		input    []int
-		filterFn func(int, int, []int) bool
-		expected []int
-	}{
+	intValueTests := []TestCase[int]{
 		{
 			input:    []int{1, 2, 3, 4, 5},
 			filterFn: func(element int, index int, slice []int) bool { return element < 4 },
@@ -30,8 +32,8 @@ func TestFilter(t *testing.T) {
 		},
 	}
 
-	for _, test := range tests {
-		var actual []int = functional.Filter(test.input, test.filterFn)
+	for _, test := range intValueTests {
+		actual := functional.Filter(test.input, test.filterFn)
 
 		assert.ElementsMatch(t, test.expected, actual)
 	}
