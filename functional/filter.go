@@ -1,5 +1,11 @@
 package functional
 
 func Filter(elements []int, filterFn func(int) bool) []int {
-	return []int{1, 2, 3}
+	result := []int{}
+	for _, element := range elements {
+		if filterFn(element) {
+			result = append(result, element)
+		}
+	}
+	return result
 }

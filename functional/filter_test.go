@@ -18,6 +18,11 @@ func TestFilter(t *testing.T) {
 			filterFn: func(elem int) bool { return elem < 4 },
 			expected: []int{1, 2, 3},
 		},
+		{
+			input:    []int{},
+			filterFn: func(elem int) bool { return elem < 4 },
+			expected: []int{},
+		},
 	}
 
 	for _, test := range tests {
