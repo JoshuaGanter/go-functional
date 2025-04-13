@@ -37,4 +37,18 @@ func TestFilter(t *testing.T) {
 
 		assert.ElementsMatch(t, test.expected, actual)
 	}
+
+	stringValueTests := []TestCase[string]{
+		{
+			input:    []string{"hello", "World", "from", "Inside", "GO"},
+			filterFn: func(element string, index int, slice []string) bool { return len(element) == 5 },
+			expected: []string{"hello", "World"},
+		},
+	}
+
+	for _, test := range stringValueTests {
+		actual := functional.Filter(test.input, test.filterFn)
+
+		assert.ElementsMatch(t, test.expected, actual)
+	}
 }
