@@ -3,18 +3,18 @@ package functional_test
 import (
 	"testing"
 
-	"github.com/JoshuaGanter/go-concurrency/functional"
+	"github.com/JoshuaGanter/go-functional/functional"
 	"github.com/stretchr/testify/assert"
 )
 
-type TestCase[TValue comparable] struct {
+type filterTestCase[TValue comparable] struct {
 	input    []TValue
 	filterFn func(TValue, int, []TValue) bool
 	expected []TValue
 }
 
 func TestFilter(t *testing.T) {
-	intValueTests := []TestCase[int]{
+	intValueTests := []filterTestCase[int]{
 		{
 			input:    []int{1, 2, 3, 4, 5},
 			filterFn: func(element int, index int, slice []int) bool { return element < 4 },
@@ -38,7 +38,7 @@ func TestFilter(t *testing.T) {
 		assert.ElementsMatch(t, test.expected, actual)
 	}
 
-	stringValueTests := []TestCase[string]{
+	stringValueTests := []filterTestCase[string]{
 		{
 			input:    []string{"hello", "World", "from", "Inside", "GO"},
 			filterFn: func(element string, index int, slice []string) bool { return len(element) == 5 },

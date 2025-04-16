@@ -1,4 +1,4 @@
-module github.com/JoshuaGanter/go-concurrency
+module github.com/JoshuaGanter/go-functional
 
 go 1.24.2
 
