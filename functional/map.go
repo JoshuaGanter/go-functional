@@ -1,9 +1,8 @@
 package functional
 
-func Map[TValue comparable, TResult comparable](slice []TValue, mapFn func(TValue, int, []TValue) TResult) []TResult {
-	var result []TResult
-	for index, element := range slice {
-		result = append(result, mapFn(element, index, slice))
-	}
-	return result
+func Map[TValue any, TResult any](slice []TValue, mapFn func(TValue, int, []TValue) TResult) []TResult {
+	return Reduce(slice, func(previous []TResult, current TValue, index int, innerSlice []TValue) []TResult {
+		previous[index] = mapFn(current, index, innerSlice)
+		return previous
+	}, make([]TResult, len(slice)))
 }

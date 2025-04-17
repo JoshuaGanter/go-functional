@@ -1,11 +1,10 @@
 package functional
 
-func Filter[TValue comparable](slice []TValue, filterFn func(TValue, int, []TValue) bool) []TValue {
-	result := []TValue{}
-	for index, element := range slice {
-		if filterFn(element, index, slice) {
-			result = append(result, element)
+func Filter[TValue any](slice []TValue, filterFn func(TValue, int, []TValue) bool) []TValue {
+	return Reduce(slice, func(previous []TValue, current TValue, index int, slice []TValue) []TValue {
+		if filterFn(current, index, slice) {
+			return append(previous, current)
 		}
-	}
-	return result
+		return previous
+	}, []TValue{})
 }
